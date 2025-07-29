@@ -13,8 +13,8 @@ Pensando na característica de vários clientes usando a mesma aplicação, mas 
 Uma característica importante da escolha do sqlite é que ele é local, no sentido de ficar na mesma máquina que o executa, em nosso caso, na máquina onde o backend será *deployado*.
 
 O problema com essa abordagem é que, se o arquivo sqlite ficar na mesma máquina do backend, o arquivo poderá sofrer problemas de consistência, uma vez que a cada deploy a máquina do backend é criada do zero (no caso de containers docker) consequentemente apagando o arquivo do banco e subindo um novo vazio. Soluções para esse problema:
-1. Caso o backend seja remoto: ter todos os arquivos de banco de todos os clientes em um servidor de arquivos isolado. A string de conexão para essa arquivo sqlite apontaria para essa máquina remota. Isso traz problemas de segurança se não for bem gerenciado.
-2. Caso o backend seja executado na máquina local do cliente: o cliente teria o arquivo de banco de dados em sua máquina local. O problema é a falta de backup, já que ninguém faz backup.
+1. **Caso o backend seja remoto:** ter todos os arquivos de banco de todos os clientes em um servidor de arquivos isolado. A string de conexão para essa arquivo sqlite apontaria para essa máquina remota. Isso traz problemas de segurança se não for bem gerenciado.
+2. **Caso o backend seja executado na máquina local do cliente:** o cliente teria o arquivo de banco de dados em sua máquina local. O problema é a falta de backup, já que ninguém faz backup.
 
 Então temos as seguintes opcoes, caso desejemos ir na rota single-tenant com banco sqlite:
 1. Entregar uma solução 100% offline (aplicação de navegador), com modo on-line opcional para algumas funcionalidades (busca de CEP, por exemplo)
