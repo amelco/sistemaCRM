@@ -1,4 +1,6 @@
 # Sistema CRM
+Link pro trello: [Board](https://trello.com/b/Or5dsGFg/sistemacrm)
+
 Pensei o seguinte, o diferencial da nossa ferramente será a venda por módulos, após a validação da ideia. Com base nisso pensei em seguir os passos abaixo: bora discutir isso aí.
 1. Implementar o crud simples do cliente salvando os dados em sqlite, por enquanto
 2. CRUD de módulos (agenda) só para associar e desassociar de um cliente
@@ -10,6 +12,8 @@ Pensando na característica de vários clientes usando a mesma aplicação, mas 
 - aplicação *multi-tenant*: O mesmo banco é compartilhado entre todos os clientes (*tenants*). Uma coluna (`'tenantId'` por exemplo) indentifica o tenant dono daquele registro da tabela.
 - **aplicação *single-tenant* ou convencional: cada cliente terá seu próprio banco de dados. Acho que essa é nossa escolha já que usaremos banco de dados sqlite.**
 
+
+## Cliente
 Uma característica importante da escolha do sqlite é que ele é local, no sentido de ficar na mesma máquina que o executa, em nosso caso, na máquina onde o backend será *deployado*.
 
 O problema com essa abordagem é que, se o arquivo sqlite ficar na mesma máquina do backend, o arquivo poderá sofrer problemas de consistência, uma vez que a cada deploy a máquina do backend é criada do zero (no caso de containers docker) consequentemente apagando o arquivo do banco e subindo um novo vazio. Soluções para esse problema:
