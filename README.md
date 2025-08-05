@@ -21,13 +21,13 @@ A filosofia do funcionamento do sistema é de ser agnóstico a qualquer coisa ex
 Vamos dar um exemplo de como o sistema irá acessar o armazenamento para persitência e coleta de dados de forma agnóstica:  
 Uma API será definida para armazenar entidades. Por exemplo:
 ```csharp
-iterface IStorage<T>
+interface IStorage<T>
 {
   void Gravar<T>(T entidade);
   void Atualizar<T>(int id, T entidadePartial);
   void Excluir(int id);
   T Ler<T>(int id);
-  List<T> Listar(Filtro filtro, Paginacao pag);
+  List<T> Listar<T>(Filtro filtro, Paginacao pag);
 }
 ```
 
