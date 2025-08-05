@@ -64,6 +64,35 @@ class StorageSqlite<T> : IStorage<T>
 
 O mesmo é feito com outras partes do sistema como UI e Módulos.
 
+Pensando nisso, sugiro uma estrutura parecida com essa:
+```
+/
+core/
+    entities/
+            Cliente.cs
+            ...
+    ...
+storage/
+       IStorage.cs
+       SqliteStorage.cs
+       ...
+backend/
+       clientController.cs
+       ...
+ui/
+  IUi.cs
+  UiWeb.cs
+  UiDesktop.cs
+  ...
+modules/
+       module1/
+              IModule1.cs
+              Module1.cs
+      module2/
+             ...
+...    
+```
+
 ## Cliente
 Uma característica importante da escolha do sqlite é que ele é local, no sentido de ficar na mesma máquina que o executa, em nosso caso, na máquina onde o backend será *deployado*.
 
