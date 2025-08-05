@@ -12,6 +12,57 @@ Pensando na característica de vários clientes usando a mesma aplicação, mas 
 - aplicação *multi-tenant*: O mesmo banco é compartilhado entre todos os clientes (*tenants*). Uma coluna (`'tenantId'` por exemplo) indentifica o tenant dono daquele registro da tabela.
 - **aplicação *single-tenant* ou convencional: cada cliente terá seu próprio banco de dados. Acho que essa é nossa escolha já que usaremos banco de dados sqlite.**
 
+### Estrutura
+A filosofia do funcionamento do sistema é de ser agnóstico a qualquer coisa externa a ele. Isso é feito através da construção de interfaces (APIs) bem definidas em que o core do sistema pode se comunicar.
+**Core** é tudo o que é parte do domínio, ou seja do negócio, e lá e **somente lá** ficarão as *regras de negócio*.
+
+![alt text](https://github.com/amelco/sistemaCRM/blob/develop/documentation/arch_v1.png?raw=true)
+
+Vamos dar um exemplo de como o sistema irá acessar o armazenamento para persitência e coleta de dados de forma agnóstica:  
+Uma API será definida para armazenar entidades. Por exemplo:
+```csharp
+iterface IStorage<T>
+{
+  void Gravar<T>(T entidade);
+  void Atualizar<T>(int id, T entidadePartial);
+  void Excluir(int id);
+  T Ler<T>(int id);
+  List<T> Listar(Filtro filtro, Paginacao pag);
+}
+```
+
+Dessa forma, se quisermos utilizar o sqlite para armazenamento, implementamos uma classe concreta dessa interface:
+```csharp
+class StorageSqlite<T> : IStorage<T>
+{
+  StorageSqlite() {
+    // implementação do construtor
+  }
+
+  // implementação dos métodos da interface
+  void Gravar<T>(T entidade) {
+    // implementacao do método
+  }
+
+  void Atualizar<T>(int id, T entidadePartial) {
+    // implementacao do método
+  }
+
+  void Excluir(int id) {
+    // implementacao do método
+  }
+
+  T Ler<T>(int id) {
+    // implementacao do método
+  }
+
+  List<T> Listar(Filtro filtro, Paginacao pag) {
+    // implementacao do método
+  }
+}
+```
+
+O mesmo é feito com outras partes do sistema como UI e Módulos.
 
 ## Cliente
 Uma característica importante da escolha do sqlite é que ele é local, no sentido de ficar na mesma máquina que o executa, em nosso caso, na máquina onde o backend será *deployado*.
