@@ -1,4 +1,6 @@
+using System.Threading.Tasks;
 using Core.Entities;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend
@@ -6,20 +8,38 @@ namespace Backend
     [Controller]
     public class ClienteController : Controller
     {
+        ClienteRepository repo = new ClienteRepository(); // TODO (Andre): fazer injecao de dependencia
+
+        [HttpGet]
+        [Route("/cliente/{id}")]
+        public IActionResult Get(int id)
+        {
+            var cliente = repo.Obter(1);
+            if (cliente is null) return Ok();
+
+            var clienteMap = Cliente.Map(cliente);
+            return Ok(clienteMap);
+        }
+
+        [HttpPost]
+        [Route("/cliente")]
+        public IActionResult Post(ClienteModel model)
+        {
+            var cliente = Cliente.Map(model);
+            if (cliente is null || String.IsNullOrEmpty(cliente.Nome) || cliente.Idade == 0) return Ok();
+
+            var sucesso = repo.Inserir(cliente);
+            if (sucesso) return Created();
+
+            return Ok();
+        }
+
         [HttpGet]
         [Route("/cliente")]
-        public IActionResult Get()
+        public IActionResult List()
         {
-            // 1. buscar a lista de clientes no storage -> List<Cliente>
-            List<Cliente> clientes = new();
-            clientes.Add(new Cliente("Fulano", 18));
-            clientes.Add( new Cliente("Beltrano", 22));
-
-            // 2. Mapeamento da List<Cliente> para List<ClienteModel>
-            var clientesMap = Cliente.MapList(clientes);
-
-            // 3. Retorna a lista de cliente model
-            return Ok(clientesMap);
+            var lista = repo.Listar();
+            return Ok(lista);
         }
     }
 }

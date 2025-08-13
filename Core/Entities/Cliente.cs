@@ -4,11 +4,12 @@ namespace Core.Entities
 {
     public class Cliente
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
         public int Idade { get; set; }
         public decimal Salario { get; set; }
 
-        public Cliente(string Nome, int Idade)
+        public Cliente(int id, string Nome, int Idade)
         {
             this.Nome = Nome;
             this.Idade = Idade;
@@ -34,6 +35,13 @@ namespace Core.Entities
                 models.Add(Map(cliente));
             });
             return models;
+        }
+
+        public static Cliente Map(ClienteModel model)
+        {
+            // TODO (Andre): adiciocat logica de mapeamento em outro local que nao o core, ja que ele esta muito acoplado com o sqlite
+            // (Andre): -1 indica que nao importa o valor, ele vai ser automaticamente adicionado pelo sqlite
+            return new Cliente(-1, model.Nome, model.Idade);
         }
     }
 }
