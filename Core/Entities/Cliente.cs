@@ -11,6 +11,7 @@ namespace Core.Entities
 
         public Cliente(int id, string Nome, int Idade)
         {
+            this.Id = id;
             this.Nome = Nome;
             this.Idade = Idade;
         }
@@ -21,6 +22,7 @@ namespace Core.Entities
             //       para exibir ou nao qualquer campo existente na Entidade.
             return new ClienteModel
             {
+                Id = cliente.Id,
                 Nome = cliente.Nome,
                 Idade = cliente.Idade,
                 // Salario = cliente.Salario
