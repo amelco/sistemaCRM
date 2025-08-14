@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.Data.Sqlite;
+using Sprache;
 
 namespace Backend
 {
@@ -7,8 +8,8 @@ namespace Backend
     {
         public static string connectionString = EnvironmentVariables.SqliteConnectionString;
 
-        // TODO (Andre): trocar asserts por error handling
-        public static T? Query<T>(string query, Func<SqliteDataReader, T> map)
+        // TODO (Andre): trocar asserts por error handling e logging
+        public static T Query<T>(string query, Func<SqliteDataReader?, T> map)
         {
             var conn = new SqliteConnection(connectionString);
             Debug.Assert(conn is not null);
@@ -23,7 +24,7 @@ namespace Backend
             if (reader is null)
             {
                 conn.Close();
-                return default;
+                return map(null);
             }
 
             reader.Read();

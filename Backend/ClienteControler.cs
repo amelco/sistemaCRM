@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Core.Entities;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,38 +7,61 @@ namespace Backend
     [Controller]
     public class ClienteController : Controller
     {
-        ClienteRepository repo = new ClienteRepository(); // TODO (Andre): fazer injecao de dependencia
+        ClienteRepository repo = new ClienteRepository();
 
         [HttpGet]
         [Route("/cliente/{id}")]
         public IActionResult Get(int id)
         {
-            var cliente = repo.Obter(1);
-            if (cliente is null) return Ok();
+            try
+            {
+                var cliente = repo.Obter(id);
+                if (cliente.TemErro) return BadRequest(cliente.Erro);   // (Andre) TODO: encontrar uma resposta mais adequada que BadRequest
 
-            var clienteMap = Cliente.Map(cliente);
-            return Ok(clienteMap);
+                var clienteMap = Cliente.Map(cliente.Sucesso!);
+                return Ok(clienteMap);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(Resultado<Cliente>.Falha(e.Message).Erro); // (Andre) TODO: melhorar o uso de quando o resultado eh falho OU adicionar midware pra capturar excecoes nao tratadas
+            }
         }
 
         [HttpPost]
         [Route("/cliente")]
         public IActionResult Post(ClienteModel model)
         {
-            var cliente = Cliente.Map(model);
-            if (cliente is null || String.IsNullOrEmpty(cliente.Nome) || cliente.Idade == 0) return Ok();
+            try
+            {
+                var cliente = Cliente.Map(model);
+                if (cliente is null || String.IsNullOrEmpty(cliente.Nome) || cliente.Idade == 0) return Ok();
 
-            var sucesso = repo.Inserir(cliente);
-            if (sucesso) return Created();
+                var res = repo.Inserir(cliente);
+                if (res.TemErro) return BadRequest(res.Erro);  // (Andre) TODO: encontrar uma resposta mais adequada que BadRequest
 
-            return Ok();
+                return Ok(res.Sucesso);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(Resultado<Cliente>.Falha(e.Message).Erro); // (Andre) TODO: melhorar o uso de quando o resultado eh falho
+            }
         }
 
         [HttpGet]
         [Route("/cliente")]
         public IActionResult List()
         {
-            var lista = repo.Listar();
-            return Ok(lista);
+            try
+            {
+                var lista = repo.Listar();
+                if (lista.TemErro) return BadRequest(lista.Erro);
+
+                return Ok(lista.Sucesso);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(Resultado<Cliente>.Falha(e.Message).Erro); // (Andre) TODO: melhorar o uso de quando o resultado eh falho
+            }
         }
     }
 }

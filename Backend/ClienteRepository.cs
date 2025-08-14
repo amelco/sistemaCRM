@@ -1,12 +1,12 @@
 using Core.Entities;
 using Core.Entities.Partials;
-using Core.Models;
 using Storage;
 
 namespace Backend
 {
     public class ClienteRepository : IClienteStorage
     {
+        const string MensagemErroMapeamento = "Mapeamento de cliente inexistente";
 
         public Cliente? Atualizar(int id, PartialCliente partialCliente)
         {
@@ -18,31 +18,30 @@ namespace Backend
             throw new NotImplementedException();
         }
 
-        public bool Inserir(Cliente cliente)
+        public Resultado<bool> Inserir(Cliente cliente)
         {
             var sql = $"insert into Cliente (nome, idade) values ('{cliente.Nome}', {cliente.Idade})";
             var retorno = RawSql.NonQuery(sql);
-            return retorno > 0;
+            return Resultado<bool>.Ok(retorno > 0);
         }
 
-        public List<Cliente>? Listar()
+        public Resultado<List<Cliente>> Listar()
         {
             var sql = $"select * from Cliente";
             var retorno = RawSql.Query(sql, ListClienteMapping);
             return retorno;
         }
 
-        public Cliente? Obter(int id)
+        public Resultado<Cliente> Obter(int id)
         {
             var sql = $"select * from Cliente where id = {id}";
             var retorno = RawSql.Query(sql, ClienteMapping);
             return retorno;
         }
 
-        private Cliente ClienteMapping(Microsoft.Data.Sqlite.SqliteDataReader? reader)
+        private Resultado<Cliente> ClienteMapping(Microsoft.Data.Sqlite.SqliteDataReader? reader)
         {
-            // TODO (Andre): adicionar error handling
-            if (reader is null) return new Cliente(-1, "", 0);
+            if (reader is null) return Resultado<Cliente>.Falha(MensagemErroMapeamento);
 
             int it = 0;
             var id = reader.GetInt32(it++);
@@ -50,25 +49,27 @@ namespace Backend
             var idade = reader.GetInt32(it++);
             var salario = reader.IsDBNull(it) ? default : reader.GetDecimal(it++);  // (Andre): tratando coluna opcional da tabela.
 
-            return new Cliente(id, nome, idade)
-            {
-                Salario = salario
-            };
+            return Resultado<Cliente>.Ok(
+                new Cliente(id, nome, idade)
+                {
+                    Salario = salario
+                }
+            );
         }
 
-        private List<Cliente> ListClienteMapping(Microsoft.Data.Sqlite.SqliteDataReader? reader)
+        private Resultado<List<Cliente>> ListClienteMapping(Microsoft.Data.Sqlite.SqliteDataReader? reader)
         {
-            // TODO (Andre): adicionar error handling
             var clientes = new List<Cliente>();
-            if (reader is null) return clientes;
+            if (reader is null) return Resultado<List<Cliente>>.Falha(MensagemErroMapeamento);
 
             do
             {
                 var cliente = ClienteMapping(reader);
-                clientes.Add(cliente);
+                if (cliente.TemErro) return Resultado<List<Cliente>>.Falha(MensagemErroMapeamento);
+                clientes.Add(cliente.Sucesso!);
             } while (reader.Read());
 
-            return clientes;
+            return Resultado<List<Cliente>>.Ok(clientes);
         }
     }
 }
