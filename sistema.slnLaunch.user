@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Completo",
+    "Projects": [
+      {
+        "Path": "sistema.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "..\\Desktop\\Desktop.csproj",
+        "Action": "Start",
+        "DebugTarget": "Desktop"
+      }
+    ]
+  }
+]
