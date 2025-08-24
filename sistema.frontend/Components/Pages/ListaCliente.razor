@@ -15,23 +15,25 @@ else if (clientes.Count == 0)
 }
 else
 {
-    <table class="tabela-clientes">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var c in clientes)
-            {
+    <div class="table-wrapper">
+        <table class="tabela-clientes">
+            <thead>
                 <tr>
-                    <td>@c.Nome</td>
-                    <td>@c.Telefone</td>
+                    <th>Nome</th>
+                    <th>Telefone</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var c in clientes)
+                {
+                    <tr>
+                        <td>@c.Nome</td>
+                        <td>@c.Telefone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 
 @code {

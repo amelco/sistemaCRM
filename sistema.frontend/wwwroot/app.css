@@ -36,3 +36,98 @@
 .content {
     padding: 20px;
 }
+
+/* Formulário estilizado */
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+.form-control {
+    width: 50%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+    .form-control:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    }
+
+EditForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+
+.btn-salvar {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+    .btn-salvar:hover {
+        background-color: #0056b3;
+    }
+
+.msg-sucesso {
+    margin-top: 10px;
+    color: green;
+    font-weight: bold;
+}
+
+/* Wrapper para centralizar e limitar largura */
+.table-wrapper {
+    width: 60%; /* metade a pouco mais da tela */
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.tabela-clientes {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+    .tabela-clientes th, .tabela-clientes td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    .tabela-clientes thead {
+        background: linear-gradient(90deg, #004080, #3399ff);
+        color: white;
+        font-weight: bold;
+    }
+
+    .tabela-clientes tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .tabela-clientes tbody tr:hover {
+        background-color: #d0e4ff;
+    }
+
+    .tabela-clientes th:first-child, .tabela-clientes td:first-child {
+        border-left: none;
+    }
+

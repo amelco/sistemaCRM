@@ -4,17 +4,31 @@
 @inject ClienteApiService ClienteApiService
 
 <h2>Cadastro de Cliente</h2>
+<div class="form-wrapper">
+    <EditForm Model="@novoCliente" OnValidSubmit="@SalvarCliente" FormName="CadastroClienteForm">
+        <div class="form-group">
+            <label for="nome"></label>
+            <InputText id="nome" class="form-control" @bind-Value="novoCliente.Nome" placeholder="Nome completo" />
+        </div>
 
-<EditForm Model="@novoCliente" OnValidSubmit="@SalvarCliente" FormName="CadastroClienteForm">
-    <InputText @bind-Value="novoCliente.Nome" placeholder="Nome" class="form-input" />
-    <InputText @bind-Value="novoCliente.Email" placeholder="Email" class="form-input" />
-    <InputText @bind-Value="novoCliente.Telefone" placeholder="Telefone" class="form-input" />
-    <button type="submit" class="btn-salvar">Salvar</button>
-</EditForm>
+        <div class="form-group">
+            <label for="email"></label>
+            <InputText id="email" class="form-control" @bind-Value="novoCliente.Email" placeholder="Email" />
+        </div>
+
+        <div class="form-group">
+            <label for="telefone"></label>
+            <InputText id="telefone" class="form-control" @bind-Value="novoCliente.Telefone" placeholder="Telefone" />
+        </div>
+
+        <button type="submit" class="btn-salvar">Salvar</button>
+    </EditForm>
+</div>
+
 
 @if (mensagem != null)
 {
-    <p>@mensagem</p>
+    <p class="msg-sucesso">@mensagem</p>
 }
 
 @code {
@@ -24,7 +38,7 @@
     private async Task SalvarCliente()
     {
         await ClienteApiService.AddClienteAsync(novoCliente);
-        mensagem = $"Cliente {novoCliente.Nome} cadastrado!";
+        mensagem = $"Cliente {novoCliente.Nome} cadastrado com sucesso!";
         novoCliente = new Cliente(); // reset
     }
 }
