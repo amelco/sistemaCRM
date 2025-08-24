@@ -83,3 +83,6 @@ ehthumbs.db
 
 # Windows shortcuts
 *.lnk
+bin/
+obj/
+.env
