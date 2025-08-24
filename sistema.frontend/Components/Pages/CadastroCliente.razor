@@ -1,0 +1,30 @@
+﻿@page "/cadastro-cliente"
+@using sistema.frontend.Models
+@using sistema.frontend.Services
+@inject ClienteApiService ClienteApiService
+
+<h2>Cadastro de Cliente</h2>
+
+<EditForm Model="@novoCliente" OnValidSubmit="@SalvarCliente" FormName="CadastroClienteForm">
+    <InputText @bind-Value="novoCliente.Nome" placeholder="Nome" class="form-input" />
+    <InputText @bind-Value="novoCliente.Email" placeholder="Email" class="form-input" />
+    <InputText @bind-Value="novoCliente.Telefone" placeholder="Telefone" class="form-input" />
+    <button type="submit" class="btn-salvar">Salvar</button>
+</EditForm>
+
+@if (mensagem != null)
+{
+    <p>@mensagem</p>
+}
+
+@code {
+    private Cliente novoCliente = new();
+    private string? mensagem;
+
+    private async Task SalvarCliente()
+    {
+        await ClienteApiService.AddClienteAsync(novoCliente);
+        mensagem = $"Cliente {novoCliente.Nome} cadastrado!";
+        novoCliente = new Cliente(); // reset
+    }
+}

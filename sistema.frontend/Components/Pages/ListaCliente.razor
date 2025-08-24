@@ -1,0 +1,44 @@
+﻿@page "/lista-clientes"
+@using sistema.frontend.Models
+@using sistema.frontend.Services
+@inject ClienteApiService ClienteApiService
+
+<h2>Lista de Clientes</h2>
+
+@if (clientes == null)
+{
+    <p>Carregando...</p>
+}
+else if (clientes.Count == 0)
+{
+    <p>Nenhum cliente encontrado.</p>
+}
+else
+{
+    <table class="tabela-clientes">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in clientes)
+            {
+                <tr>
+                    <td>@c.Nome</td>
+                    <td>@c.Telefone</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Cliente>? clientes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clientes = await ClienteApiService.GetClientesAsync();
+    }
+}

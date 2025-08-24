@@ -1,4 +1,5 @@
-namespace sistema.Entities;
+﻿namespace sistema.frontend.Models;
+
 public class Cliente
 {
     public int Id { get; set; }

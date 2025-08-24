@@ -1,0 +1,15 @@
+﻿@namespace sistema.frontend.Components.Layout
+@inherits LayoutComponentBase
+
+<link href="app.css" rel="stylesheet" />
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+    <main>
+        <div class="content px-4">
+            @Body
+        </div>
+    </main>
+</div>

@@ -1,0 +1,38 @@
+/* layout geral */
+.page {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    height: 100vh;
+}
+
+/* menu lateral */
+.navmenu {
+    background: linear-gradient(180deg, #004080, #3399ff);
+    padding: 20px;
+    color: white;
+    height: 100%;
+}
+
+    .navmenu ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .navmenu li {
+        margin-bottom: 15px;
+    }
+
+    .navmenu a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .navmenu a.active {
+            text-decoration: underline;
+        }
+
+/* conteúdo */
+.content {
+    padding: 20px;
+}
