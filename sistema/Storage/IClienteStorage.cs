@@ -1,7 +1,7 @@
-using Core.Entities;
-using Core.Entities.Partials;
+using sistema.Entities;
+using sistema.Entities.Partials;
 
-namespace Storage
+namespace sistema.Storage
 {
     public interface IClienteStorage
     {
@@ -10,5 +10,8 @@ namespace Storage
         Cliente? Atualizar(int id, PartialCliente partialCliente);  // retorna cliente atualizado somente apos a gravacao com sucesso
         bool Inserir(Cliente cliente);
         bool Excluir(int id);
+
+        //ToDo (Jaque): Mudar no front para usar o Inserir e excluir esse método.
+        Cliente Adicionar(Cliente cliente);
     }
 }

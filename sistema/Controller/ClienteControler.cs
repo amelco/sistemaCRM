@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using sistema.Entities;
 using sistema.Repositories;
 
-namespace sistema.Controllers;
+namespace sistema.Controller;
 
 [ApiController]
 [Route("api/[controller]")]

@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.Data.Sqlite;
 
-namespace Backend
+namespace sistema.Repositories
 {
     public static class RawSql
     {

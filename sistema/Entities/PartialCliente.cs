@@ -1,5 +1,5 @@
 
-namespace Core.Entities.Partials
+namespace sistema.Entities.Partials
 {
     public class PartialCliente
     {

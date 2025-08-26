@@ -1,4 +1,4 @@
-namespace Core.Models
+namespace sistema.Models
 {
     public class ClienteModel
     {
