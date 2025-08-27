@@ -17,8 +17,4 @@
     <ProjectReference Include="..\sistema.frontend\sistema.frontend.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="..\sistema\" />
-  </ItemGroup>
-
 </Project>
