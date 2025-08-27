@@ -4,6 +4,7 @@ namespace sistema.Models
     {
         public string Nome { get; set; } = "";
         public int Idade { get; set; }
-        // public decimal Salario { get; set; }
+        public decimal Salario { get; set; }
+        public string Telefone { get; set; } = string.Empty;
     }
 }

@@ -131,3 +131,8 @@ EditForm {
         border-left: none;
     }
 
+.half-width {
+    width: 50%;
+    min-width: 200px;
+}
+

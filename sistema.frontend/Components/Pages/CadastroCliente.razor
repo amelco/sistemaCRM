@@ -1,4 +1,5 @@
 ﻿@page "/cadastro-cliente"
+@using BlazorBootstrap
 @using sistema.frontend.Models
 @using sistema.frontend.Services
 @inject ClienteApiService ClienteApiService
@@ -12,6 +13,11 @@
         </div>
 
         <div class="form-group">
+            <label for="idade"></label>
+            <InputNumber id="idade" class="form-control" @bind-Value="novoCliente.Idade" placeholder="Idade" />
+        </div>
+
+        <div class="form-group">
             <label for="email"></label>
             <InputText id="email" class="form-control" @bind-Value="novoCliente.Email" placeholder="Email" />
         </div>
@@ -19,6 +25,10 @@
         <div class="form-group">
             <label for="telefone"></label>
             <InputText id="telefone" class="form-control" @bind-Value="novoCliente.Telefone" placeholder="Telefone" />
+        </div>
+
+        <div class="form-group">
+            <CurrencyInput Mask="currency" TValue="decimal" @bind-Value="novoCliente.Salario" Locale="pt-BR" Placeholder="Salário" class="form-control half-width" />
         </div>
 
         <button type="submit" class="btn-salvar">Salvar</button>

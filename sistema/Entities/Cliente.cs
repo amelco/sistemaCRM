@@ -24,7 +24,7 @@ namespace sistema.Entities
             {
                 Nome = cliente.Nome,
                 Idade = cliente.Idade,
-                // Salario = cliente.Salario
+                Salario = cliente.Salario
             };
         }
 
