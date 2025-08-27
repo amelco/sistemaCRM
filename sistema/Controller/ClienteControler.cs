@@ -22,7 +22,7 @@ public class ClientesController : ControllerBase
     [HttpPost]
     public ActionResult<Cliente> Post([FromBody] Cliente cliente)
     {
-        var novo = _repo.Adicionar(cliente);
-        return CreatedAtAction(nameof(Get), new { id = novo.Id }, novo);
+        var novo = _repo.Inserir(cliente);
+        return CreatedAtAction(nameof(Get), novo);
     }
 }

@@ -9,13 +9,16 @@ public class ClienteRepository : IClienteStorage
     private readonly List<Cliente> _clientes = [];
     private int _nextId = 1;
 
-    public List<Cliente> ObterTodos() => _clientes;
-
-    public Cliente Adicionar(Cliente cliente)
+    public List<Cliente> ObterTodos() 
     {
-        cliente.Id = _nextId++;
-        _clientes.Add(cliente);
-        return cliente;
+        string query = "SELECT Id, Nome, Idade FROM Cliente";
+
+        return RawSql.QueryAll(query, reader => new Cliente
+        (
+             reader.GetInt32(0),
+             reader.GetString(1),
+             reader.IsDBNull(2) ? 0 : reader.GetInt32(2)
+        ));
     }
 
     public Cliente? Atualizar(int id, PartialCliente partialCliente)
@@ -28,11 +31,12 @@ public class ClienteRepository : IClienteStorage
         throw new NotImplementedException();
     }
 
-    public bool Inserir(Cliente cliente)
+    public Cliente Inserir(Cliente cliente)
     {
-        var sql = $"insert into Cliente (nome, idade) values ('{cliente.Nome}', {cliente.Idade})";
+        var sql = $"insert into Cliente (Nome, Idade, Salario)" +
+            $" values ('{cliente.Nome}', {cliente.Idade}, {cliente.Salario})";
         var retorno = RawSql.NonQuery(sql);
-        return retorno > 0;
+        return cliente;
     }
 
     public List<Cliente>? Listar()

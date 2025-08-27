@@ -48,5 +48,26 @@ namespace sistema.Repositories
 
             return qtd;
         }
+
+        public static List<T> QueryAll<T>(string query, Func<SqliteDataReader, T> map)
+        {
+            var conn = new SqliteConnection(connectionString);
+            Debug.Assert(conn is not null);
+            conn.Open();
+
+            var cmd = new SqliteCommand(query, conn);
+            Debug.Assert(cmd is not null);
+
+            var reader = cmd.ExecuteReader();
+            var lista = new List<T>();
+
+            while (reader.Read())
+            {
+                lista.Add(map(reader));
+            }
+
+            conn.Close();
+            return lista;
+        }
     }
 }

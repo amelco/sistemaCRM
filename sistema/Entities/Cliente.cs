@@ -7,11 +7,13 @@ namespace sistema.Entities
         public int Id { get; set; }
         public string Nome { get; set; }
         public int Idade { get; set; }
+        public string? Email { get; set; }
         public decimal Salario { get; set; }
-        public string Telefone { get; set; } = string.Empty;
+        public string? Telefone { get; set; } = string.Empty;
 
         public Cliente(int id, string Nome, int Idade)
         {
+            this.Id = id;
             this.Nome = Nome;
             this.Idade = Idade;
         }
