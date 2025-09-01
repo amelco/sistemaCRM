@@ -24,6 +24,7 @@ namespace sistema.Entities
             //       para exibir ou nao qualquer campo existente na Entidade.
             return new ClienteModel
             {
+                Id = cliente.Id,
                 Nome = cliente.Nome,
                 Idade = cliente.Idade,
                 Salario = cliente.Salario

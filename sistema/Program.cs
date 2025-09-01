@@ -14,6 +14,8 @@ builder.Services.AddSingleton<ClienteRepository>();
 
 var app = builder.Build();
 
+// (Andre) TODO: capturar excecoes nao tratadas e trata-las usando Resultado<T>
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

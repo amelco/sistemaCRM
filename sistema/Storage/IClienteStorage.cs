@@ -1,14 +1,14 @@
-using sistema.Entities;
-using sistema.Entities.Partials;
+using Core.Entities;
+using Core.Entities.Partials;
 
 namespace sistema.Storage
 {
     public interface IClienteStorage
     {
-        Cliente? Obter(int id);
-        List<Cliente>? Listar();     // TODO (Andre): filtro e paginacao
+        Resultado<Cliente> Obter(int id);
+        Resultado<List<Cliente>> Listar();     // TODO (Andre): filtro e paginacao
         Cliente? Atualizar(int id, PartialCliente partialCliente);  // retorna cliente atualizado somente apos a gravacao com sucesso
-        Cliente Inserir(Cliente cliente);
+        Resultado<bool> Inserir(Cliente cliente);
         bool Excluir(int id);
     }
 }
