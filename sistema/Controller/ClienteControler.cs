@@ -23,6 +23,6 @@ public class ClientesController : ControllerBase
     public ActionResult<Cliente> Post([FromBody] Cliente cliente)
     {
         var novo = _repo.Inserir(cliente);
-        return CreatedAtAction(nameof(Get), novo);
+        return CreatedAtAction(nameof(Get), new { id = novo.Id }, novo);
     }
 }

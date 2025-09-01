@@ -16,5 +16,5 @@ public class ClienteApiService
         => await _http.GetFromJsonAsync<List<Cliente>>("api/clientes") ?? new();
 
     public async Task AddClienteAsync(Cliente cliente)
-        => await _http.PostAsJsonAsync("api/clientes", cliente);
+        => await _http.PostAsJsonAsync("api/Clientes", cliente);
 }
