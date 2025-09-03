@@ -12,6 +12,14 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<ClienteRepository>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+        policy.AllowAnyOrigin()   // ou .WithOrigins("https://localhost:5002") para restringir
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
 var app = builder.Build();
 
 // (Andre) TODO: capturar excecoes nao tratadas e trata-las usando Resultado<T>

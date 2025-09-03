@@ -1,4 +1,6 @@
-namespace Backend
+using System.Text.Json.Serialization;
+
+namespace sistema.Repositories
 {
     public record Erro(string mensagem) {
         public static Erro None = new Erro(string.Empty);

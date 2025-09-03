@@ -16,8 +16,15 @@ public class ClientesController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Cliente>> Get()
-        => Ok(_repo.ObterTodos());
+    public ActionResult<List<Cliente>> Get()
+    {
+        var resultado = _repo.ObterTodos();
+
+        if (!resultado.FoiSucesso)
+            return BadRequest(resultado.Erro.mensagem);
+
+        return Ok(resultado.Sucesso);
+    }
 
     [HttpPost]
     public ActionResult<Cliente> Post([FromBody] Cliente cliente)
